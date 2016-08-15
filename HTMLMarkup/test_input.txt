@@ -1,0 +1,34 @@
+welcome to world of python
+
+
+
+
+A "Hello, world! program is often used to introduce beginning programmers to a programming language.
+In general,it is simple enough to be understood easily, especially with the guidance of a teacher or a written guide.
+
+A *Hello, world!* program is often used to introduce beginning
+programmers to a programming language In general,it is simple
+enough to be understood easily
+especially with the
+guidance of
+a teacher
+or a written
+guide.
+
+
+
+
+there are a lot of things to be concerned:
+
+ -a bad dog
+ -a good dog
+ -a strong dog
+
+
+How to solve it?
+
+(refer to : http://www.baidu.com)
+
+if still has problems?
+
+(mailto:adkalf@sfdaf.com)
