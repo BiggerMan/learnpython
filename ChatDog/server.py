@@ -11,13 +11,18 @@ class EndSession(Exception): pass
 class CommandHandler:
     def unknown(self, session, cmd):
         session.push('unknown command:%s\r\n' % cmd)
+
     def handle(self, session, line):
-        if not line.strip():
-            return
+        if not line.strip(): return
         parts = line.split(' ', 1)
         cmd = parts[0]
         try:
             line = parts[1].strip()
+        except IndexError:
+            line = ''
+        method = getattr(self, 'do_'+cmd, None)
+        try:
+            method(session, line)
         except TypeError:
             self.unknown(session, cmd)
 
@@ -31,7 +36,8 @@ class Room(CommandHandler):
         self.sessions.append(session)
 
     def remove(self, session):
-        self.sessions.remove(session)
+        if session in self.sessions:
+            self.sessions.remove(session)
 
     def broadcast(self, line):
         for session in self.sessions:
@@ -43,7 +49,7 @@ class Room(CommandHandler):
 
 class LoginRoom(Room):
     def add(self, session):
-        Room.add(session)
+        Room.add(self,  session)
         self.broadcast('Welcome to %s \r\n' % self.server.name)
 
     def unknown(self, session, cmd):
@@ -96,6 +102,7 @@ class ChatSession(async_chat):
         self.set_terminator("\r\n")
         self.data = []
         self.name = None
+
         self.enter(LoginRoom(server))
 
     def enter(self, room):
